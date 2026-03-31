@@ -1,15 +1,22 @@
-import { AsideFilter, CardItem, TopHeaderFilter } from "../components";
+import {
+  AsideFilter,
+  CardItem,
+  HeaderPageContainer,
+  PageContainer,
+  TopHeaderFilter,
+} from "../components";
 
 export const HomePage = () => {
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-col">
+    <PageContainer>
+      <HeaderPageContainer>
         <h1 className="font-semibold text-2xl">Мои объявления</h1>
         <p className="text-gray-400 text-basexl">42 объявления</p>
-      </div>
+      </HeaderPageContainer>
+
       <TopHeaderFilter />
 
-      <div className="flex gap-6">
+      <div className="flex flex-col gap-6 md:flex-row">
         <AsideFilter />
 
         <main className="flex flex-wrap gap-3">
@@ -27,6 +34,6 @@ export const HomePage = () => {
           <CardItem />
         </main>
       </div>
-    </div>
+    </PageContainer>
   );
 };

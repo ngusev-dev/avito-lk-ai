@@ -14,7 +14,7 @@ import {
 
 export const AsideFilter = () => {
   return (
-    <aside className="flex flex-col gap-4 w-full max-w-[256px] min-w-[256px]">
+    <aside className="flex flex-col gap-4 w-full md:max-w-[256px]">
       <div className="bg-white p-3 rounded-[8px] w-full flex flec-col gap-2 flex-col">
         <h4 className="font-semibold">Фильтры</h4>
 
