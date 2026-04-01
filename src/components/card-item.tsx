@@ -2,9 +2,16 @@ import { Dot } from "lucide-react";
 import { Link } from "react-router";
 
 import defaultImage from "/default-image.png";
-import { ROUTE } from "../shared/constants/route.constans";
 
-export const CardItem = () => {
+import { AD_CATEGORY, ROUTE, currencyFormat } from "../shared";
+import { Skeleton } from "./ui/skeleton";
+import type { ItemResponse } from "../services";
+
+interface CardItemProps {
+  item: ItemResponse;
+}
+
+export const CardItem = ({ item }: CardItemProps) => {
   return (
     <Link
       to={ROUTE.DETAIL_AD(12)}
@@ -15,20 +22,26 @@ export const CardItem = () => {
       </div>
       <div className="px-4 py-2 flex flex-col gap-3">
         <div className="border border-background rounded-md w-fit px-3 bg-white ">
-          Электроника
+          {AD_CATEGORY[item.category]}
         </div>
         <div>
-          <p className="text-base">Наушники</p>
+          <p className="text-base">{item.title}</p>
           <small className="text-secondary-45 font-bold text-base">
-            2990 ₽
+            {currencyFormat(item.price)}
           </small>
         </div>
 
-        <div className="rounded bg-[rgba(250,173,20,1)]/10 flex items-center text-[rgba(250,173,20,1)] py-0.5">
-          <Dot size={20} />
-          <p className="text-base">Требует доработок</p>
-        </div>
+        {item.needsRevision && (
+          <div className="rounded bg-[rgba(250,173,20,1)]/10 flex items-center text-[rgba(250,173,20,1)] py-0.5">
+            <Dot size={20} />
+            <p className="text-base">Требует доработок</p>
+          </div>
+        )}
       </div>
     </Link>
   );
+};
+
+export const CardItemSkeleton = () => {
+  return <Skeleton className="block h-67.5 w-full" />;
 };

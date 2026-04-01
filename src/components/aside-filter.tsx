@@ -11,8 +11,24 @@ import {
   Separator,
   Switch,
 } from "./ui";
+import { AD_CATEGORY } from "../shared";
+import { useAdsGlobalFilterStore } from "../store";
 
 export const AsideFilter = () => {
+  const filter = useAdsGlobalFilterStore((store) => store.filter);
+  const setFilter = useAdsGlobalFilterStore((store) => store.setFilter);
+
+  const categoryCheckedHandler = (categoryKey: string) => {
+    const newSelected = filter.categories?.includes(categoryKey)
+      ? filter.categories?.filter((cat) => cat !== categoryKey)
+      : [...(filter.categories ?? []), categoryKey];
+
+    setFilter({ categories: newSelected });
+  };
+
+  const isCategorySelected = (categoryKey: string) =>
+    filter.categories?.includes(categoryKey) ?? false;
+
   return (
     <aside className="flex flex-col gap-4 w-full md:max-w-[256px]">
       <div className="bg-white p-3 rounded-[8px] w-full flex flec-col gap-2 flex-col">
@@ -30,18 +46,17 @@ export const AsideFilter = () => {
           </CollapsibleTrigger>
           <CollapsibleContent>
             <FieldGroup className="gap-3">
-              <Field orientation="horizontal">
-                <Checkbox id="car-checkbox" name="filter" />
-                <Label htmlFor="car-checkbox">Авто</Label>
-              </Field>
-              <Field orientation="horizontal">
-                <Checkbox id="electronic-checkbox" name="filter" />
-                <Label htmlFor="electronic-checkbox">Электроника</Label>
-              </Field>
-              <Field orientation="horizontal">
-                <Checkbox id="test-checkbox" name="filter" />
-                <Label htmlFor="test-checkbox">Авто</Label>
-              </Field>
+              {Object.entries(AD_CATEGORY).map(([key, name]) => (
+                <Field orientation="horizontal" key={key}>
+                  <Checkbox
+                    id={key}
+                    name="filter"
+                    checked={isCategorySelected(key)}
+                    onCheckedChange={() => categoryCheckedHandler(key)}
+                  />
+                  <Label htmlFor={key}>{name}</Label>
+                </Field>
+              ))}
             </FieldGroup>
           </CollapsibleContent>
         </Collapsible>
@@ -49,16 +64,29 @@ export const AsideFilter = () => {
         <Separator />
 
         <div className="flex items-center gap-2">
-          <Label htmlFor="all-checkbox" className=" font-semibold leading-5">
+          <Label
+            htmlFor="needsRevision-checkbox"
+            className=" font-semibold leading-5"
+          >
             Только требующие доработок
           </Label>
-          <Switch id="all-checkbox" name="test" />
+          <Switch
+            id="needsRevision-checkbox"
+            name="needsRevision"
+            checked={filter.needsRevision}
+            onCheckedChange={(checked) => setFilter({ needsRevision: checked })}
+          />
         </div>
       </div>
 
       <Button
         className="h-10 disabled:opacity-100 disabled:bg-white disabled:text-gray-300"
-        disabled
+        onClick={() =>
+          setFilter({
+            needsRevision: false,
+            categories: undefined,
+          })
+        }
       >
         Сбросить фильтры
       </Button>
