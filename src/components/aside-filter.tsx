@@ -22,7 +22,7 @@ export const AsideFilter = () => {
           <CollapsibleTrigger asChild>
             <Button
               variant="ghost"
-              className="group w-full bg-transparent hover:bg-transparent p-0"
+              className="group w-full bg-transparent hover:bg-transparent p-0 font-normal"
             >
               Категория
               <ChevronDownIcon className="ml-auto group-data-[state=open]:rotate-180" />

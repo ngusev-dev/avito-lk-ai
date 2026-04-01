@@ -1,4 +1,4 @@
-import { AlertCircle, LucideEdit3 } from "lucide-react";
+import { AlertCircle, ArrowLeftIcon, LucideEdit3 } from "lucide-react";
 import {
   Button,
   HeaderPageContainer,
@@ -7,11 +7,18 @@ import {
 } from "../components";
 
 import defaultImage from "/default-image.png";
+import { Link } from "react-router";
+import { ROUTE } from "../shared/constants/route.constans";
 
 export const ProductPage = () => {
   return (
     <PageContainer>
       <HeaderPageContainer className="gap-3">
+        <Link to={ROUTE.ADS}>
+          <Button variant={"link"}>
+            <ArrowLeftIcon /> Назад
+          </Button>
+        </Link>
         <div className="flex justify-between text-3xl font-semibold">
           <h2>MacBook Pro 16”</h2>
           <h2>64000 ₽</h2>
