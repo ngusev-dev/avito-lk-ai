@@ -15,13 +15,13 @@ export const CardItem = ({ item }: CardItemProps) => {
   return (
     <Link
       to={ROUTE.DETAIL_AD(12)}
-      className="bg-white rounded-[8px] cursor-pointer block"
+      className="bg-white rounded-[8px] cursor-pointer block border-gray-300 overflow-hidden border"
     >
       <div className="bg-gray-50 h-37.5 rounded-b-xl overflow-hidden -mb-5">
         <img src={defaultImage} className="w-full  h-full object-cover" />
       </div>
       <div className="px-4 py-2 flex flex-col gap-3">
-        <div className="border border-background rounded-md w-fit px-3 bg-white ">
+        <div className="border border-gray-300 rounded-md w-fit px-3 bg-white ">
           {AD_CATEGORY[item.category]}
         </div>
         <div>

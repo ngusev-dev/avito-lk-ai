@@ -1,9 +1,19 @@
 import { CardItem, CardItemSkeleton } from "./card-item";
 import { ServerCrash } from "lucide-react";
 import { useGetAdItems } from "../hooks";
+import { PaginatorAdapteer } from "./paginator-adapter";
+import { useAdsGlobalFilterStore } from "../store";
+import { Skeleton } from "./ui/skeleton";
 
 export const AdsGrid = () => {
   const { data, isLoading, isError } = useGetAdItems();
+  const filter = useAdsGlobalFilterStore((store) => store.filter);
+  const setFilter = useAdsGlobalFilterStore((store) => store.setFilter);
+
+  const onPageChange = (selectedPage: number) =>
+    setFilter({
+      skip: (selectedPage - 1) * (filter.limit ?? 10),
+    });
 
   if (isError)
     return (
@@ -14,7 +24,7 @@ export const AdsGrid = () => {
     );
 
   return (
-    <main className="w-full">
+    <main className="w-full flex flex-col gap-2.5">
       <section className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-3 w-full h-full">
         {!isLoading && data?.data.items.length === 0 && (
           <p className="flex justify-center items-center text-gray-400">
@@ -30,6 +40,17 @@ export const AdsGrid = () => {
             <CardItemSkeleton key={index} />
           ))}
       </section>
+
+      {!isLoading && (
+        <PaginatorAdapteer
+          total={data?.data.total ?? 0}
+          skip={filter.skip}
+          limit={filter.limit}
+          onPageChange={onPageChange}
+        />
+      )}
+
+      {isLoading && <Skeleton className="h-10 w-60" />}
     </main>
   );
 };

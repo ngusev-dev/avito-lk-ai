@@ -27,14 +27,14 @@ function PaginationContent({
   return (
     <ul
       data-slot="pagination-content"
-      className={cn("flex items-center gap-0.5", className)}
+      className={cn("flex items-center gap-2 h-10 ", className)}
       {...props}
     />
   );
 }
 
 function PaginationItem({ ...props }: React.ComponentProps<"li">) {
-  return <li data-slot="pagination-item" {...props} />;
+  return <li data-slot="pagination-item" className="h-full" {...props} />;
 }
 
 type PaginationLinkProps = {
@@ -51,9 +51,11 @@ function PaginationLink({
   return (
     <Button
       asChild
-      variant={isActive ? "outline" : "ghost"}
+      variant={"outline"}
       size={size}
-      className={cn(className)}
+      className={cn("h-full px-4 border-gray-300", className, {
+        "text-[#1890FF] border-[#1890FF]": isActive,
+      })}
     >
       <a
         aria-current={isActive ? "page" : undefined}
@@ -73,8 +75,7 @@ function PaginationPrevious({
   return (
     <PaginationLink
       aria-label="Go to previous page"
-      size="default"
-      className={cn("pl-1.5!", className)}
+      className={cn("px-3", className)}
       {...props}
     >
       <ChevronLeftIcon data-icon="inline-start" />
@@ -91,8 +92,7 @@ function PaginationNext({
   return (
     <PaginationLink
       aria-label="Go to next page"
-      size="default"
-      className={cn("pr-1.5!", className)}
+      className={cn("px-3", className)}
       {...props}
     >
       <span className="hidden sm:block">{text}</span>
