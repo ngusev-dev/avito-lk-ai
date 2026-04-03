@@ -6,3 +6,5 @@ export * from "./page-container";
 export * from "./header-page-container";
 export * from "./home-header";
 export * from "./paginator-adapter";
+export * from "./ad-specifications-table";
+export * from "./global-spinner";

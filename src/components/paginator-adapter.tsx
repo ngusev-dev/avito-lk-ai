@@ -6,18 +6,21 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "./ui";
+import { Skeleton } from "./ui/skeleton";
 
 interface PaginatorAdapteerProps {
   total: number;
   skip?: number;
   limit?: number;
   onPageChange: (page: number) => void;
+  isLoading?: boolean;
 }
 
 export const PaginatorAdapteer = ({
   total,
   skip,
   limit = 10,
+  isLoading = false,
   onPageChange,
 }: PaginatorAdapteerProps) => {
   const totalPages = Math.ceil(total / limit);
@@ -33,6 +36,8 @@ export const PaginatorAdapteer = ({
 
     onPageChange(activePage + value);
   };
+
+  if (isLoading) return <Skeleton className="h-10 w-60" />;
 
   return (
     <Pagination className="justify-start">

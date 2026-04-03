@@ -3,7 +3,6 @@ import { ServerCrash } from "lucide-react";
 import { useGetAdItems } from "../hooks";
 import { PaginatorAdapteer } from "./paginator-adapter";
 import { useAdsGlobalFilterStore } from "../store";
-import { Skeleton } from "./ui/skeleton";
 
 export const AdsGrid = () => {
   const { data, isLoading, isError } = useGetAdItems();
@@ -14,6 +13,8 @@ export const AdsGrid = () => {
     setFilter({
       skip: (selectedPage - 1) * (filter.limit ?? 10),
     });
+
+  const isAdItemsEmpty = data?.items.length === 0;
 
   if (isError)
     return (
@@ -26,13 +27,13 @@ export const AdsGrid = () => {
   return (
     <main className="w-full flex flex-col gap-2.5">
       <section className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-3 w-full h-full">
-        {!isLoading && data?.data.items.length === 0 && (
+        {!isLoading && isAdItemsEmpty && (
           <p className="flex justify-center items-center text-gray-400">
             Ничего не найдено
           </p>
         )}
         {!isLoading &&
-          data?.data.items.map((item, index) => (
+          data?.items.map((item, index) => (
             <CardItem key={index} item={item} />
           ))}
         {isLoading &&
@@ -41,16 +42,15 @@ export const AdsGrid = () => {
           ))}
       </section>
 
-      {!isLoading && (
+      {!isAdItemsEmpty && (
         <PaginatorAdapteer
-          total={data?.data.total ?? 0}
+          total={data?.total ?? 0}
           skip={filter.skip}
           limit={filter.limit}
           onPageChange={onPageChange}
+          isLoading={isLoading}
         />
       )}
-
-      {isLoading && <Skeleton className="h-10 w-60" />}
     </main>
   );
 };

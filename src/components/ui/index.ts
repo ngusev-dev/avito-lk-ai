@@ -9,3 +9,5 @@ export * from "./label";
 export * from "./separator";
 export * from "./switch";
 export * from "./pagination";
+export * from "./skeleton";
+export * from "./spinner";

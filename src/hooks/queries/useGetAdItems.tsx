@@ -8,5 +8,6 @@ export const useGetAdItems = () => {
   return useQuery({
     queryKey: ["get-all-ads", queryFilter],
     queryFn: async () => await apiService.getAdsItems(queryFilter),
+    select: (resposne) => resposne.data,
   });
 };

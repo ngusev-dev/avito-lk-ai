@@ -9,9 +9,7 @@ export const HomeHeader = () => {
     <HeaderPageContainer>
       <h1 className="font-bold text-2xl">Мои объявления</h1>
       {!isLoading && (
-        <p className="text-gray-400 text-basexl">
-          {data?.data.total} объявления
-        </p>
+        <p className="text-gray-400 text-basexl">{data?.total} объявления</p>
       )}
       {isLoading && <Skeleton className="h-6.75 w-50" />}
     </HeaderPageContainer>
