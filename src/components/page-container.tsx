@@ -7,7 +7,13 @@ export const PageContainer = ({
   ...props
 }: PropsWithChildren<ComponentProps<"div">>) => {
   return (
-    <div {...props} className={cn("flex flex-col gap-4", className)}>
+    <div
+      {...props}
+      className={cn(
+        "flex flex-col gap-4 bg-background px-8 py-2 h-full min-h-svh",
+        className,
+      )}
+    >
       {children}
     </div>
   );

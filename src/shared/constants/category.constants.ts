@@ -1,9 +1,4 @@
-import type {
-  AdItem,
-  AutoItemParams,
-  ElectronicsItemParams,
-  RealEstateItemParams,
-} from "../../services";
+import type { CategoryParamsMap } from "../types/ad.types";
 
 export const AD_CATEGORY = {
   auto: "Авто",
@@ -11,15 +6,9 @@ export const AD_CATEGORY = {
   electronics: "Электроника",
 } as const;
 
-export const CATEGORY_PARAMS_FIELDS: Record<
-  AdItem["category"],
-  Record<
-    | keyof AutoItemParams
-    | keyof RealEstateItemParams
-    | keyof ElectronicsItemParams,
-    string
-  >
-> = {
+export const CATEGORY_PARAMS_FIELDS: {
+  [K in keyof CategoryParamsMap]: Record<CategoryParamsMap[K], string>;
+} = {
   auto: {
     brand: "Бренд",
     model: "Модель",

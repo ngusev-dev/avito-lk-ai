@@ -8,16 +8,16 @@ import {
 } from "../components";
 
 import defaultImage from "/default-image.png";
-import { Link, useLoaderData } from "react-router";
+import { Link, NavLink, useLoaderData } from "react-router";
 import { ROUTE } from "../shared/constants/route.constans";
 import type { ItemGetByIdOutResponse } from "../services";
 import { currencyFormat, dateFormat } from "../shared";
 
-export const ProductPage = () => {
+export const AdPage = () => {
   const ad = useLoaderData<ItemGetByIdOutResponse>();
 
   return (
-    <PageContainer>
+    <PageContainer className="bg-white">
       <HeaderPageContainer className="gap-3">
         <Link to={ROUTE.ADS}>
           <Button variant={"link"}>
@@ -29,8 +29,10 @@ export const ProductPage = () => {
           <h2>{ad.price && currencyFormat(ad.price)}</h2>
         </div>
         <div className="flex justify-between items-center">
-          <Button size={"lg"} variant={"primary"}>
-            Редактировать <LucideEdit3 />
+          <Button size={"lg"} variant={"primary"} asChild>
+            <NavLink to={ROUTE.EDIT_AD(ad.id)}>
+              Редактировать <LucideEdit3 />
+            </NavLink>
           </Button>
 
           <div className="flex flex-col items-end text-gray-400">

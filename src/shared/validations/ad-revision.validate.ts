@@ -6,11 +6,16 @@ import {
 import type { AdItem } from "../types/ad.types";
 
 export const adValidationFields = (item: AdItem): string[] => {
+  const resaltFields = [];
+  if (!item.description) resaltFields.push("description");
+
   const result = getValidationResult(item);
 
-  if (result.success) return [];
+  if (result.success) return resaltFields;
 
-  return result.error.issues.map((issue) => issue.path.join("."));
+  const fileds = result.error.issues.map((issue) => issue.path.join("."));
+
+  return [...resaltFields, ...fileds];
 };
 
 const getValidationResult = (item: AdItem) => {

@@ -14,7 +14,7 @@ export const AdSpecificationsTable = ({ item }: AdSpecificationsTableProps) => {
 
   return (
     <div className="col-start-2 row-start-1 flex flex-col gap-7 row-span-2">
-      {adValidationFieldsData.length && (
+      {adValidationFieldsData.length > 0 && (
         <div className="bg-[rgba(249,241,230,1)]/80 p-4 rounded-xl max-w-125 flex flex-col gap-2 shadow">
           <h2 className="font-semibold text-base flex flex-gap gap-2 items-center">
             <AlertCircle size={18} color="rgba(255,169,64,1)" />
@@ -23,7 +23,9 @@ export const AdSpecificationsTable = ({ item }: AdSpecificationsTableProps) => {
           <p>У объявления не заполнены поля:</p>
           <ul className="list-disc ml-6">
             {adValidationFieldsData.map((key) => (
-              <li key={key.toString()}>{fields[key as keyof typeof fields]}</li>
+              <li key={key.toString()}>
+                {fields[key as keyof typeof fields] ?? "Описание"}
+              </li>
             ))}
           </ul>
         </div>

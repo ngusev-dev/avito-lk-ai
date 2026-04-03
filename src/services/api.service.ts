@@ -1,6 +1,7 @@
 import type { AxiosResponse } from "axios";
 import { API } from "../shared";
 import type {
+  AdItem,
   ItemGetByIdOutResponse,
   ItemsGetInRequestQuery,
   ItemsGetOutResponse,
@@ -22,6 +23,10 @@ class ApiService {
     adId: number | string,
   ): Promise<AxiosResponse<ItemGetByIdOutResponse>> {
     return await API.get(`/items/${adId}`);
+  }
+
+  async updateAdItem(ad: AdItem) {
+    return await API.put(`/items/${ad.id}`, ad);
   }
 }
 

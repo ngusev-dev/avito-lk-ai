@@ -13,7 +13,6 @@ import {
 import { useAdsGlobalFilterStore } from "../store";
 import { useDebounce } from "../hooks";
 import { useEffect, useState } from "react";
-import type { ItemsGetInRequestQuery } from "../services";
 
 export const TopHeaderFilter = () => {
   const filter = useAdsGlobalFilterStore((store) => store.filter);

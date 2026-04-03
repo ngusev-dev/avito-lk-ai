@@ -11,3 +11,4 @@ export * from "./switch";
 export * from "./pagination";
 export * from "./skeleton";
 export * from "./spinner";
+export * from "./textarea";

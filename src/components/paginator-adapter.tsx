@@ -44,7 +44,6 @@ export const PaginatorAdapteer = ({
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
-            size={60}
             text=""
             onClick={() => paginationArrowClick(-1)}
           />
@@ -52,7 +51,6 @@ export const PaginatorAdapteer = ({
         {Array.from({ length: totalPages }).map((_, index) => (
           <PaginationItem key={index}>
             <PaginationLink
-              size={60}
               isActive={index + 1 === activePage}
               onClick={() => onPageChange(index + 1)}
             >
@@ -61,11 +59,7 @@ export const PaginatorAdapteer = ({
           </PaginationItem>
         ))}
         <PaginationItem>
-          <PaginationNext
-            size={60}
-            text=""
-            onClick={() => paginationArrowClick(1)}
-          />
+          <PaginationNext text="" onClick={() => paginationArrowClick(1)} />
         </PaginationItem>
       </PaginationContent>
     </Pagination>
