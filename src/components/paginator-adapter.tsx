@@ -5,7 +5,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "./ui";
+} from "./ui/pagination";
 import { Skeleton } from "./ui/skeleton";
 
 interface PaginatorAdapteerProps {

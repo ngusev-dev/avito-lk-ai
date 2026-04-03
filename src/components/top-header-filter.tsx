@@ -1,18 +1,18 @@
 import { Search } from "lucide-react";
+
+import { useAdsGlobalFilterStore } from "../store";
+import { useDebounce } from "../hooks";
+import { useEffect, useState } from "react";
+import { InputGroup, InputGroupAddon, InputGroupInput } from "./ui/input-group";
+
 import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "./ui";
-import { useAdsGlobalFilterStore } from "../store";
-import { useDebounce } from "../hooks";
-import { useEffect, useState } from "react";
+} from "./ui/select";
 
 export const TopHeaderFilter = () => {
   const filter = useAdsGlobalFilterStore((store) => store.filter);

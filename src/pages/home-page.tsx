@@ -1,10 +1,9 @@
-import {
-  AsideFilter,
-  HomeHeader,
-  PageContainer,
-  TopHeaderFilter,
-} from "../components";
+import { HomeHeader } from "@/components/home-header";
 import { AdsGrid } from "../components/ads-grid";
+import { PageContainer } from "@/components/page-container";
+import { TopHeaderFilter } from "@/components/top-header-filter";
+import { AsideFilter } from "@/components/aside-filter";
+
 export const HomePage = () => {
   return (
     <PageContainer>

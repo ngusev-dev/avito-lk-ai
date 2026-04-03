@@ -6,7 +6,7 @@ import defaultImage from "/default-image.png";
 import { AD_CATEGORY, ROUTE, currencyFormat } from "../shared";
 import { Skeleton } from "./ui/skeleton";
 import type { ItemResponse } from "../services";
-import { Spinner } from "./ui";
+import { Spinner } from "./ui/spinner";
 
 interface CardItemProps {
   item: ItemResponse;

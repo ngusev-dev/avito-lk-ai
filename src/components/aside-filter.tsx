@@ -1,18 +1,18 @@
 import { ChevronDownIcon } from "lucide-react";
+
+import { AD_CATEGORY } from "../shared";
+import { useAdsGlobalFilterStore } from "../store";
 import {
-  Button,
-  Checkbox,
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-  Field,
-  FieldGroup,
-  Label,
-  Separator,
-  Switch,
-} from "./ui";
-import { AD_CATEGORY } from "../shared";
-import { useAdsGlobalFilterStore } from "../store";
+} from "./ui/collapsible";
+import { Button } from "./ui/button";
+import { Field, FieldGroup } from "./ui/field";
+import { Switch } from "./ui/switch";
+import { Label } from "./ui/label";
+import { Separator } from "./ui/separator";
+import { Checkbox } from "./ui/checkbox";
 
 export const AsideFilter = () => {
   const filter = useAdsGlobalFilterStore((store) => store.filter);

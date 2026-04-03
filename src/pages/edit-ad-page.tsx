@@ -1,26 +1,5 @@
 import { Link, NavLink, useLoaderData, useNavigate } from "react-router";
-import {
-  AutoFields,
-  Button,
-  ElectronicsFields,
-  Field,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-  FieldSet,
-  HeaderPageContainer,
-  Input,
-  PageContainer,
-  RealEstateFields,
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-  Separator,
-  Textarea,
-} from "../components";
+
 import { AD_CATEGORY, ROUTE } from "../shared";
 import {
   apiService,
@@ -30,6 +9,30 @@ import {
 import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 import { ArrowLeftIcon } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
+import { PageContainer } from "@/components/page-container";
+import { HeaderPageContainer } from "@/components/header-page-container";
+import { AutoFields } from "@/components/form-fields/auto-fields";
+import { RealEstateFields } from "@/components/form-fields/real-estate-fields";
+import { ElectronicsFields } from "@/components/form-fields/electronics-fields";
+import { Button } from "@/components/ui/button";
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+  FieldSet,
+} from "@/components/ui/field";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Separator } from "@/components/ui/separator";
 
 export const EditAdPage = () => {
   const navigate = useNavigate();

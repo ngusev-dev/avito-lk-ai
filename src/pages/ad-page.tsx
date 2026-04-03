@@ -1,17 +1,16 @@
 import { ArrowLeftIcon, LucideEdit3 } from "lucide-react";
-import {
-  AdSpecificationsTable,
-  Button,
-  HeaderPageContainer,
-  PageContainer,
-  Separator,
-} from "../components";
 
 import defaultImage from "/default-image.png";
 import { Link, NavLink, useLoaderData } from "react-router";
 import { ROUTE } from "../shared/constants/route.constans";
 import type { ItemGetByIdOutResponse } from "../services";
 import { currencyFormat, dateFormat } from "../shared";
+import { PageContainer } from "@/components/page-container";
+import { HeaderPageContainer } from "@/components/header-page-container";
+
+import { AdSpecificationsTable } from "@/components/ad-specifications-table";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
 export const AdPage = () => {
   const ad = useLoaderData<ItemGetByIdOutResponse>();
