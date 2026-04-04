@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from "./ui/select";
 import type { AdItem } from "@/services";
-import { AD_CATEGORY, ROUTE } from "@/shared";
+import { AD_CATEGORY, PROMT_TYPE, ROUTE } from "@/shared";
 
 import { FieldInputControl } from "./form-fields/field-input-control";
 import { Separator } from "./ui/separator";
@@ -75,7 +75,7 @@ export const FormEditAd = ({ adData }: { adData: AdItem }) => {
           />
         </FieldSet>
         <Separator />
-        <FieldSet className=" flex flex-row items-end">
+        <FieldSet className="max-w-2xl flex flex-row items-end">
           <FieldInputControl
             id="price"
             label={"Цена"}
@@ -87,13 +87,14 @@ export const FormEditAd = ({ adData }: { adData: AdItem }) => {
             type="number"
             errorMessage="Цена должна быть заполнена"
             required
-          />
-          <AiButton />
+          >
+            <AiButton getValues={getValues} type={PROMT_TYPE.PRICE} />
+          </FieldInputControl>
         </FieldSet>
         <Separator />
         <FieldSet>
           <Field>
-            <FieldLabel htmlFor="price">Характеристики</FieldLabel>
+            <FieldLabel>Характеристики</FieldLabel>
           </Field>
           {selectedCategory === "auto" && (
             <AutoFields register={register} getValue={getValues} />
@@ -109,8 +110,11 @@ export const FormEditAd = ({ adData }: { adData: AdItem }) => {
 
         <FieldSet>
           <Field>
-            <FieldLabel htmlFor="price">Описание</FieldLabel>
-            <Textarea {...register("description")} />
+            <FieldLabel htmlFor="description">Описание</FieldLabel>
+            <div className="flex flex-col gap-2">
+              <Textarea {...register("description")} />
+              <AiButton getValues={getValues} type={PROMT_TYPE.DESCRIPTION} />
+            </div>
           </Field>
         </FieldSet>
 

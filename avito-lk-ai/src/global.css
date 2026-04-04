@@ -137,3 +137,7 @@
     @apply font-sans;
   }
 }
+
+.react-tooltip.react-tooltip__variant-error {
+  background-color: rgba(254, 233, 231, 1) !important;
+}
