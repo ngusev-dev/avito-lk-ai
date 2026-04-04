@@ -37,4 +37,12 @@ export const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "*",
+    lazy: () =>
+      import("../pages/not-found-page").then((module) => ({
+        Component: module.NotFoundPage,
+      })),
+    HydrateFallback: GlobalSpinner,
+  },
 ]);

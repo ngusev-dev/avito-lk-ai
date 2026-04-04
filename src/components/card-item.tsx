@@ -21,7 +21,7 @@ export const CardItem = ({ item }: CardItemProps) => {
       {({ isPending }) => (
         <>
           {isPending && (
-            <div className="absolute top-0 left-0 bottom-0 right-0 bg-gray-400/30 flex items-center justify-center transition-colors">
+            <div className="absolute top-0 left-0 bottom-0 right-0 bg-gray-400/20 flex items-center justify-center transition-colors">
               <Spinner />
             </div>
           )}
