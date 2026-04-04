@@ -1,7 +1,7 @@
 import { apiService, type AdItem } from "@/services";
 import { ROUTE } from "@/shared";
 import { useMutation } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useEffect, useTransition } from "react";
 import { useForm, useWatch, type SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router";
 
@@ -17,6 +17,8 @@ const cleanEmptyParamsField = (obj: AdItem) => {
 
 export const useEditAd = (adData: AdItem) => {
   const navigate = useNavigate();
+  const [_, startTransition] = useTransition();
+
   const savedDraft = localStorage.getItem(`editAd_${adData.id}`);
   const initialValues = savedDraft ? JSON.parse(savedDraft) : adData;
 
@@ -30,7 +32,6 @@ export const useEditAd = (adData: AdItem) => {
   });
 
   useEffect(() => {
-    console.log(formValues);
     localStorage.setItem(`editAd_${adData.id}`, JSON.stringify(formValues));
 
     return () => {
@@ -38,20 +39,35 @@ export const useEditAd = (adData: AdItem) => {
     };
   }, [formValues]);
 
-  const { mutate } = useMutation({
+  const { mutateAsync } = useMutation({
+    mutationKey: ["update-ad", adData.id],
     mutationFn: async (ad: AdItem) => apiService.updateAdItem(ad),
-    onSuccess: () => {
-      navigate(ROUTE.DETAIL_AD(adData.id));
-    },
   });
 
-  const submit: SubmitHandler<AdItem> = (data) => {
-    console.log();
+  const submit: SubmitHandler<AdItem> = async (data) => {
     const requestData: AdItem = {
       ...data,
       params: cleanEmptyParamsField(data),
     };
-    mutate(requestData);
+    const { toast } = await import("react-hot-toast");
+    toast.promise(
+      mutateAsync(requestData, {
+        onSuccess: () => navigate(ROUTE.DETAIL_AD(adData.id)),
+      }),
+      {
+        loading: "Сохранение...",
+        success: "Изменения сохранены",
+        error: (
+          <div className="flex flex-col gap-2">
+            <p className="font-medium">Ошибка при сохранении</p>
+            <p>
+              При попытке сохранить изменения произошла ошибка. Попробуйте ещё
+              раз или зайдите позже.
+            </p>
+          </div>
+        ),
+      },
+    );
   };
 
   return {

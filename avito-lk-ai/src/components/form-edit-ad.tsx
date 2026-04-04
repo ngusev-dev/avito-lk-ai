@@ -14,6 +14,7 @@ import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
 import { AiButton } from "./ai-button";
 import { DropListControl } from "./form-fields/drop-list-control";
+import { Spinner } from "./ui/spinner";
 
 export const FormEditAd = ({ adData }: { adData: AdItem }) => {
   const {
@@ -25,7 +26,7 @@ export const FormEditAd = ({ adData }: { adData: AdItem }) => {
   return (
     <form onSubmit={handleSubmit(submit)}>
       <FieldGroup>
-        <FieldSet>
+        <FieldSet className="max-w-2xl">
           <DropListControl
             control={control}
             setValue={setValue}
@@ -37,7 +38,7 @@ export const FormEditAd = ({ adData }: { adData: AdItem }) => {
           />
         </FieldSet>
         <Separator />
-        <FieldSet>
+        <FieldSet className="max-w-2xl">
           <FieldInputControl
             id="title"
             label={"Название"}
@@ -65,7 +66,7 @@ export const FormEditAd = ({ adData }: { adData: AdItem }) => {
           </FieldInputControl>
         </FieldSet>
         <Separator />
-        <FieldSet>
+        <FieldSet className="max-w-2xl">
           <Field>
             <FieldLabel>Характеристики</FieldLabel>
           </Field>
@@ -111,7 +112,9 @@ export const FormEditAd = ({ adData }: { adData: AdItem }) => {
             Сохранить
           </Button>
           <Button size={"lg"} variant={"secondary"} asChild>
-            <NavLink to={ROUTE.DETAIL_AD(adData.id)}>Отменить</NavLink>
+            <NavLink to={ROUTE.DETAIL_AD(adData.id)}>
+              {({ isPending }) => <>{isPending && <Spinner />} Отменить</>}
+            </NavLink>
           </Button>
         </FieldSet>
       </FieldGroup>

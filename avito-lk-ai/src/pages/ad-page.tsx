@@ -11,6 +11,7 @@ import { HeaderPageContainer } from "@/components/header-page-container";
 import { AdSpecificationsTable } from "@/components/ad-specifications-table";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { Spinner } from "@/components/ui/spinner";
 
 export const AdPage = () => {
   const ad = useLoaderData<ItemGetByIdOutResponse>();
@@ -30,7 +31,11 @@ export const AdPage = () => {
         <div className="flex justify-between items-center">
           <Button size={"lg"} variant={"primary"} asChild>
             <NavLink to={ROUTE.EDIT_AD(ad.id)}>
-              Редактировать <LucideEdit3 />
+              {({ isPending }) => (
+                <>
+                  {isPending && <Spinner />} Редактировать <LucideEdit3 />
+                </>
+              )}
             </NavLink>
           </Button>
 
