@@ -1,6 +1,7 @@
 import { apiService, type AdItem } from "@/services";
 import { ROUTE } from "@/shared";
 import { useMutation } from "@tanstack/react-query";
+import { useEffect } from "react";
 import { useForm, useWatch, type SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router";
 
@@ -16,13 +17,26 @@ const cleanEmptyParamsField = (obj: AdItem) => {
 
 export const useEditAd = (adData: AdItem) => {
   const navigate = useNavigate();
+  const savedDraft = localStorage.getItem(`editAd_${adData.id}`);
+  const initialValues = savedDraft ? JSON.parse(savedDraft) : adData;
 
   const form = useForm<AdItem>({
     mode: "onChange",
-    defaultValues: {
-      ...adData,
-    },
+    defaultValues: initialValues,
   });
+
+  const formValues = useWatch({
+    control: form.control,
+  });
+
+  useEffect(() => {
+    console.log(formValues);
+    localStorage.setItem(`editAd_${adData.id}`, JSON.stringify(formValues));
+
+    return () => {
+      localStorage.removeItem(`editAd_${adData.id}`);
+    };
+  }, [formValues]);
 
   const { mutate } = useMutation({
     mutationFn: async (ad: AdItem) => apiService.updateAdItem(ad),
@@ -40,14 +54,9 @@ export const useEditAd = (adData: AdItem) => {
     mutate(requestData);
   };
 
-  const selectedCategory = useWatch({
-    control: form.control,
-    name: "category",
-  });
-
   return {
     form,
     submit,
-    selectedCategory,
+    formValues,
   };
 };

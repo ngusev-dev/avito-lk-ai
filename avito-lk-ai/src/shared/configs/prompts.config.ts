@@ -41,15 +41,15 @@ export const DESCRIPTION_SYSTEM_PROMPT = `
   `;
 
 export const GENERATE_PRICE_PROMT = (data: AdItem) => {
-  console.log(data);
-
   const params = data.params;
   const fields = CATEGORY_PARAMS_FIELDS[data.category];
 
-  const paramsString = Object.entries(params).map(
-    ([key, value], index) =>
-      `\n\t${index + 1}. ${fields[key as keyof typeof fields]}-${value}`,
-  );
+  const paramsString = Object.entries(params)
+    .filter(([_, value]) => !!value)
+    .map(
+      ([key, value], index) =>
+        `\n\t${index + 1}. ${fields[key as keyof typeof fields]}-${value}`,
+    );
 
   return `
   Проанализируй цену для следующего товара и дай краткий ответ:
@@ -67,10 +67,12 @@ export const GENERATE_DESCRIPTON_PROMT = (data: AdItem) => {
   const params = data.params;
   const fields = CATEGORY_PARAMS_FIELDS[data.category];
 
-  const paramsString = Object.entries(params).map(
-    ([key, value], index) =>
-      `\n\t${index + 1}. ${fields[key as keyof typeof fields]}-${value}`,
-  );
+  const paramsString = Object.entries(params)
+    .filter(([_, value]) => !!value)
+    .map(
+      ([key, value], index) =>
+        `\n\t${index + 1}. ${fields[key as keyof typeof fields]}-${value}`,
+    );
 
   return `
   Проанализируй характеристики следующего объявления и напиши/дополни описание:

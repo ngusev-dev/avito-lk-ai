@@ -1,15 +1,7 @@
 import { useEditAd } from "@/hooks/forms";
 import { NavLink } from "react-router";
 import { Field, FieldGroup, FieldLabel, FieldSet } from "./ui/field";
-import { Controller } from "react-hook-form";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select";
+
 import type { AdItem } from "@/services";
 import { AD_CATEGORY, PROMT_TYPE, ROUTE } from "@/shared";
 
@@ -21,11 +13,12 @@ import { ElectronicsFields } from "./form-fields/electronics-fields";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
 import { AiButton } from "./ai-button";
+import { DropListControl } from "./form-fields/drop-list-control";
 
 export const FormEditAd = ({ adData }: { adData: AdItem }) => {
   const {
     form: { handleSubmit, setValue, control, register, formState, getValues },
-    selectedCategory,
+    formValues,
     submit,
   } = useEditAd(adData);
 
@@ -33,35 +26,15 @@ export const FormEditAd = ({ adData }: { adData: AdItem }) => {
     <form onSubmit={handleSubmit(submit)}>
       <FieldGroup>
         <FieldSet>
-          <Field>
-            <FieldLabel htmlFor="username">Категория</FieldLabel>
-            <Controller
-              name="category"
-              control={control}
-              render={({ field }) => (
-                <Select
-                  value={field.value}
-                  onValueChange={(val) => {
-                    field.onChange(val);
-                    setValue("params", {} as AdItem["params"]);
-                  }}
-                >
-                  <SelectTrigger className="w-full max-w-62 bg-white">
-                    <SelectValue placeholder="Выберите категорию" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      {Object.entries(AD_CATEGORY).map(([key, name]) => (
-                        <SelectItem value={key} key={key}>
-                          {name}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              )}
-            />
-          </Field>
+          <DropListControl
+            control={control}
+            setValue={setValue}
+            dropListItems={AD_CATEGORY}
+            placeholder="Выберите категорию"
+            formName="category"
+            clearAllParamsAfterChange
+            fieldLabel="Категория"
+          />
         </FieldSet>
         <Separator />
         <FieldSet>
@@ -96,14 +69,29 @@ export const FormEditAd = ({ adData }: { adData: AdItem }) => {
           <Field>
             <FieldLabel>Характеристики</FieldLabel>
           </Field>
-          {selectedCategory === "auto" && (
-            <AutoFields register={register} getValue={getValues} />
+          {formValues.category === "auto" && (
+            <AutoFields
+              control={control}
+              setValue={setValue}
+              register={register}
+              getValue={getValues}
+            />
           )}
-          {selectedCategory === "real_estate" && (
-            <RealEstateFields register={register} getValue={getValues} />
+          {formValues.category === "real_estate" && (
+            <RealEstateFields
+              control={control}
+              setValue={setValue}
+              register={register}
+              getValue={getValues}
+            />
           )}
-          {selectedCategory === "electronics" && (
-            <ElectronicsFields register={register} getValue={getValues} />
+          {formValues.category === "electronics" && (
+            <ElectronicsFields
+              register={register}
+              getValue={getValues}
+              control={control}
+              setValue={setValue}
+            />
           )}
         </FieldSet>
         <Separator />

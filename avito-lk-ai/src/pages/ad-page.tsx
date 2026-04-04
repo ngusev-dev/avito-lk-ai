@@ -52,7 +52,9 @@ export const AdPage = () => {
 
         <div className="col-start-1 row-start-2 flex flex-col gap-3">
           <h2 className="font-semibold text-basexl">Описание</h2>
-          {ad.description && <p>{ad.description}</p>}
+          {ad.description && (
+            <p className="whitespace-pre-line">{ad.description}</p>
+          )}
           {!ad.description && <p className="text-gray-400">Отсутствует</p>}
         </div>
       </main>
