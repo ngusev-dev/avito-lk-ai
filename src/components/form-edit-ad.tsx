@@ -20,26 +20,19 @@ import { RealEstateFields } from "./form-fields/real-estate-fields";
 import { ElectronicsFields } from "./form-fields/electronics-fields";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
+import { AiButton } from "./ai-button";
 
 export const FormEditAd = ({ adData }: { adData: AdItem }) => {
   const {
-    form: {
-      watch,
-      handleSubmit,
-      setValue,
-      control,
-      register,
-      formState,
-      getValues,
-    },
+    form: { handleSubmit, setValue, control, register, formState, getValues },
+    selectedCategory,
     submit,
   } = useEditAd(adData);
 
-  const selectedCategory = watch("category");
   return (
     <form onSubmit={handleSubmit(submit)}>
       <FieldGroup>
-        <FieldSet className="max-w-xl">
+        <FieldSet>
           <Field>
             <FieldLabel htmlFor="username">Категория</FieldLabel>
             <Controller
@@ -71,7 +64,7 @@ export const FormEditAd = ({ adData }: { adData: AdItem }) => {
           </Field>
         </FieldSet>
         <Separator />
-        <FieldSet className="max-w-xl">
+        <FieldSet>
           <FieldInputControl
             id="title"
             label={"Название"}
@@ -82,7 +75,7 @@ export const FormEditAd = ({ adData }: { adData: AdItem }) => {
           />
         </FieldSet>
         <Separator />
-        <FieldSet className="max-w-xl">
+        <FieldSet className=" flex flex-row items-end">
           <FieldInputControl
             id="price"
             label={"Цена"}
@@ -95,9 +88,10 @@ export const FormEditAd = ({ adData }: { adData: AdItem }) => {
             errorMessage="Цена должна быть заполнена"
             required
           />
+          <AiButton />
         </FieldSet>
         <Separator />
-        <FieldSet className="max-w-xl">
+        <FieldSet>
           <Field>
             <FieldLabel htmlFor="price">Характеристики</FieldLabel>
           </Field>
@@ -113,7 +107,7 @@ export const FormEditAd = ({ adData }: { adData: AdItem }) => {
         </FieldSet>
         <Separator />
 
-        <FieldSet className="max-w-xl">
+        <FieldSet>
           <Field>
             <FieldLabel htmlFor="price">Описание</FieldLabel>
             <Textarea {...register("description")} />

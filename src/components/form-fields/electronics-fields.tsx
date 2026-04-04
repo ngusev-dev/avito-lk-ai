@@ -17,6 +17,7 @@ export const ElectronicsFields = ({
     <>
       {Object.entries(fields).map(([key, label]) => (
         <FieldInputControl
+          key={key}
           id={key}
           label={label}
           labelClassName="text-sm font-normal"

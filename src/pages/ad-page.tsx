@@ -1,6 +1,6 @@
 import { ArrowLeftIcon, LucideEdit3 } from "lucide-react";
 
-import defaultImage from "/default-image.png";
+import defaultImage from "../assets/default-image.png";
 import { Link, NavLink, useLoaderData } from "react-router";
 import { ROUTE } from "../shared/constants/route.constans";
 import type { ItemGetByIdOutResponse } from "../services";

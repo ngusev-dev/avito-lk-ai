@@ -1,7 +1,7 @@
 import { Dot } from "lucide-react";
 import { NavLink } from "react-router";
 
-import defaultImage from "/default-image.png";
+import defaultImage from "../assets/default-image.png";
 
 import { AD_CATEGORY, ROUTE, currencyFormat } from "../shared";
 import { Skeleton } from "./ui/skeleton";

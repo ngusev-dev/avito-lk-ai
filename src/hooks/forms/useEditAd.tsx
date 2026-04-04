@@ -1,7 +1,7 @@
 import { apiService, type AdItem } from "@/services";
 import { ROUTE } from "@/shared";
 import { useMutation } from "@tanstack/react-query";
-import { useForm, type SubmitHandler } from "react-hook-form";
+import { useForm, useWatch, type SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router";
 
 const cleanEmptyParamsField = (obj: AdItem) => {
@@ -40,8 +40,14 @@ export const useEditAd = (adData: AdItem) => {
     mutate(requestData);
   };
 
+  const selectedCategory = useWatch({
+    control: form.control,
+    name: "category",
+  });
+
   return {
     form,
     submit,
+    selectedCategory,
   };
 };
