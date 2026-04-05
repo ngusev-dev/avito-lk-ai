@@ -1,5 +1,5 @@
-import type { LoaderFunctionArgs } from "react-router";
-import { apiService } from "../../services";
+import type { LoaderFunctionArgs } from 'react-router';
+import { apiService } from '../../services';
 
 export const detailAdLoader = async ({ params }: LoaderFunctionArgs) => {
   if (!params.id) {
@@ -11,6 +11,6 @@ export const detailAdLoader = async ({ params }: LoaderFunctionArgs) => {
   } catch {
     throw new Response(null, { status: 500 });
   }
-  console.log(responseData);
+
   return responseData;
 };

@@ -37,6 +37,7 @@ export const DESCRIPTION_SYSTEM_PROMPT = `
   Правила:
   - Убирай "воду", капслок и лишние восклицательные знаки.
   - Используй дружелюбный, но деловой стиль.
+  - Пиши только основную информацию, без вступления.
   `;
 
 export const GENERATE_PRICE_PROMT = (data: AdItem) => {

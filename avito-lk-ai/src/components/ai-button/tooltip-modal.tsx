@@ -1,6 +1,6 @@
-import { Tooltip } from "react-tooltip";
-import { Button } from "../ui/button";
-import { cn, type PromtTypeValue } from "@/shared";
+import { Tooltip } from 'react-tooltip';
+import { Button } from '../ui/button';
+import { cn, type PromtTypeValue } from '@/shared';
 
 interface TooltipModalProps {
   id: string;
@@ -9,6 +9,7 @@ interface TooltipModalProps {
   setIsOpen: (flag: boolean) => void;
   aiText: string;
   isError: boolean;
+  acceptButtonHandler?: (aiText: string) => void;
 }
 
 export const TooltipModal = ({
@@ -18,13 +19,14 @@ export const TooltipModal = ({
   setIsOpen,
   isError,
   aiText,
+  acceptButtonHandler,
 }: TooltipModalProps) => {
   return (
     <Tooltip
       id={type}
       anchorSelect={`#btn-ai-${id}`}
       className={cn(` max-w-xl shadow z-10 flex flex-col gap-2`, {
-        "bg-[rgba(254,233,231,1)]!": isError,
+        'bg-[rgba(254,233,231,1)]!': isError,
       })}
       isOpen={isOpen}
       setIsOpen={setIsOpen}
@@ -36,16 +38,12 @@ export const TooltipModal = ({
         click: false,
       }}
       clickable
-      variant={isError ? "error" : "light"}
+      variant={isError ? 'error' : 'light'}
     >
       {isError && (
         <>
-          <p className="font-semibold text-[rgba(192,15,12,1)] ">
-            Произошла ошибка при запросе к AI
-          </p>
-          <p className="whitespace-pre-line text-black">
-            Попробуйте повторить запрос или закройте уведомление
-          </p>
+          <p className="font-semibold text-[rgba(192,15,12,1)] ">Произошла ошибка при запросе к AI</p>
+          <p className="whitespace-pre-line text-black">Попробуйте повторить запрос или закройте уведомление</p>
         </>
       )}
       {!isError && (
@@ -56,14 +54,20 @@ export const TooltipModal = ({
       )}
 
       <div className="flex gap-2">
-        {/*<Button variant={"primary"} type="button">
-          Применить
-        </Button>*/}
-        <Button
-          variant={isError ? "destructive" : "outline"}
-          type="button"
-          onClick={() => setIsOpen(false)}
-        >
+        {acceptButtonHandler && (
+          <Button
+            variant={'primary'}
+            type="button"
+            onClick={() => {
+              acceptButtonHandler(aiText);
+              setIsOpen(false);
+            }}
+          >
+            Применить
+          </Button>
+        )}
+
+        <Button variant={isError ? 'destructive' : 'outline'} type="button" onClick={() => setIsOpen(false)}>
           Закрыть
         </Button>
       </div>

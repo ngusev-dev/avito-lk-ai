@@ -1,20 +1,22 @@
-import { useEditAd } from "@/hooks/forms";
-import { NavLink } from "react-router";
-import { Field, FieldGroup, FieldLabel, FieldSet } from "./ui/field";
+import { useEditAd } from '@/hooks/forms';
+import { NavLink } from 'react-router';
+import { Field, FieldGroup, FieldLabel, FieldSet } from './ui/field';
 
-import type { AdItem } from "@/services";
-import { AD_CATEGORY, PROMT_TYPE, ROUTE } from "@/shared";
+import Light from '../assets/light.svg';
 
-import { FieldInputControl } from "./form-fields/field-input-control";
-import { Separator } from "./ui/separator";
-import { AutoFields } from "./form-fields/auto-fields";
-import { RealEstateFields } from "./form-fields/real-estate-fields";
-import { ElectronicsFields } from "./form-fields/electronics-fields";
-import { Button } from "./ui/button";
-import { Textarea } from "./ui/textarea";
-import { AiButton } from "./ai-button";
-import { DropListControl } from "./form-fields/drop-list-control";
-import { Spinner } from "./ui/spinner";
+import type { AdItem } from '@/services';
+import { AD_CATEGORY, PROMT_TYPE, ROUTE } from '@/shared';
+
+import { FieldInputControl } from './form-fields/field-input-control';
+import { Separator } from './ui/separator';
+import { AutoFields } from './form-fields/auto-fields';
+import { RealEstateFields } from './form-fields/real-estate-fields';
+import { ElectronicsFields } from './form-fields/electronics-fields';
+import { Button } from './ui/button';
+import { Textarea } from './ui/textarea';
+import { AiButton } from './ai-button';
+import { DropListControl } from './form-fields/drop-list-control';
+import { Spinner } from './ui/spinner';
 
 export const FormEditAd = ({ adData }: { adData: AdItem }) => {
   const {
@@ -41,8 +43,8 @@ export const FormEditAd = ({ adData }: { adData: AdItem }) => {
         <FieldSet className="max-w-2xl">
           <FieldInputControl
             id="title"
-            label={"Название"}
-            register={register("title", { required: true })}
+            label={'Название'}
+            register={register('title', { required: true })}
             required
             isError={!!formState.errors.title}
             errorMessage="Название должно быть заполнено"
@@ -52,8 +54,8 @@ export const FormEditAd = ({ adData }: { adData: AdItem }) => {
         <FieldSet className="max-w-2xl flex flex-row items-end">
           <FieldInputControl
             id="price"
-            label={"Цена"}
-            register={register("price", {
+            label={'Цена'}
+            register={register('price', {
               required: true,
               valueAsNumber: true,
             })}
@@ -62,7 +64,10 @@ export const FormEditAd = ({ adData }: { adData: AdItem }) => {
             errorMessage="Цена должна быть заполнена"
             required
           >
-            <AiButton getValues={getValues} type={PROMT_TYPE.PRICE} />
+            <AiButton getValues={getValues} type={PROMT_TYPE.PRICE}>
+              <img src={Light} alt="AI" />
+              <p>Придумать описание</p>
+            </AiButton>
           </FieldInputControl>
         </FieldSet>
         <Separator />
@@ -70,29 +75,14 @@ export const FormEditAd = ({ adData }: { adData: AdItem }) => {
           <Field>
             <FieldLabel>Характеристики</FieldLabel>
           </Field>
-          {formValues.category === "auto" && (
-            <AutoFields
-              control={control}
-              setValue={setValue}
-              register={register}
-              getValue={getValues}
-            />
+          {formValues.category === 'auto' && (
+            <AutoFields control={control} setValue={setValue} register={register} getValue={getValues} />
           )}
-          {formValues.category === "real_estate" && (
-            <RealEstateFields
-              control={control}
-              setValue={setValue}
-              register={register}
-              getValue={getValues}
-            />
+          {formValues.category === 'real_estate' && (
+            <RealEstateFields control={control} setValue={setValue} register={register} getValue={getValues} />
           )}
-          {formValues.category === "electronics" && (
-            <ElectronicsFields
-              register={register}
-              getValue={getValues}
-              control={control}
-              setValue={setValue}
-            />
+          {formValues.category === 'electronics' && (
+            <ElectronicsFields register={register} getValue={getValues} control={control} setValue={setValue} />
           )}
         </FieldSet>
         <Separator />
@@ -101,17 +91,24 @@ export const FormEditAd = ({ adData }: { adData: AdItem }) => {
           <Field>
             <FieldLabel htmlFor="description">Описание</FieldLabel>
             <div className="flex flex-col gap-2">
-              <Textarea {...register("description")} />
-              <AiButton getValues={getValues} type={PROMT_TYPE.DESCRIPTION} />
+              <Textarea {...register('description')} />
+              <AiButton
+                getValues={getValues}
+                type={PROMT_TYPE.DESCRIPTION}
+                acceptButtonHandler={(aiText: string) => setValue('description', aiText)}
+              >
+                <img src={Light} alt="AI" />
+                <p>{getValues('description')?.length ? 'Улучшить описание' : 'Придумать описание'}</p>
+              </AiButton>
             </div>
           </Field>
         </FieldSet>
 
         <FieldSet className="flex flex-row">
-          <Button size={"lg"} variant={"primary"} disabled={!formState.isValid}>
+          <Button size={'lg'} variant={'primary'} disabled={!formState.isValid}>
             Сохранить
           </Button>
-          <Button size={"lg"} variant={"secondary"} asChild>
+          <Button size={'lg'} variant={'secondary'} asChild>
             <NavLink to={ROUTE.DETAIL_AD(adData.id)}>
               {({ isPending }) => <>{isPending && <Spinner />} Отменить</>}
             </NavLink>

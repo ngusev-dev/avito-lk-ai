@@ -4,6 +4,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
+    "build": "tsc",
     "start": "tsx server.ts"
   },
   "keywords": [],
