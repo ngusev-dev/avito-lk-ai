@@ -54,7 +54,7 @@ export const TooltipModal = ({
       )}
 
       <div className="flex gap-2">
-        {acceptButtonHandler && (
+        {!isError && acceptButtonHandler && (
           <Button
             variant={'primary'}
             type="button"
