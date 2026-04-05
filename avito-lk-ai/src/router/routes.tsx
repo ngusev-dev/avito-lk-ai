@@ -3,11 +3,13 @@ import { MainLayout } from "../layouts";
 import { ROUTE_PATH } from "../shared";
 import { detailAdLoader } from "./loaders/detail-ad.loader";
 import { GlobalSpinner } from "../components/global-spinner";
+import { FallbackComponent } from "@/components/fallback-component";
 
 export const router = createBrowserRouter([
   {
     path: ROUTE_PATH.ADS,
     element: <MainLayout />,
+    errorElement: <FallbackComponent />,
     children: [
       {
         index: true,
