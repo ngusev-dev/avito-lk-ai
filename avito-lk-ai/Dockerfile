@@ -5,6 +5,13 @@ RUN npm ci
 
 
 FROM node:20-alpine AS build
+
+ARG VITE_AI_BASE_URL
+ARG VITE_API_BASE_URL
+
+ENV VITE_AI_BASE_URL=$VITE_AI_BASE_URL
+ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
+
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY package.json package-lock.json* ./
@@ -14,7 +21,6 @@ COPY tsconfig.*.json ./
 COPY vite.config.ts ./
 COPY index.html ./
 RUN npm run build
-
 
 FROM node:20-alpine AS production
 ENV NODE_ENV=production
