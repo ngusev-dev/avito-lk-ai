@@ -66,7 +66,7 @@ export const FormEditAd = ({ adData }: { adData: AdItem }) => {
           >
             <AiButton getValues={getValues} type={PROMT_TYPE.PRICE}>
               <img src={Light} alt="AI" />
-              <p>Придумать описание</p>
+              <p>Узнать цену</p>
             </AiButton>
           </FieldInputControl>
         </FieldSet>
