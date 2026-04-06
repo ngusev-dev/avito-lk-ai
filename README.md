@@ -36,3 +36,14 @@
 6. Сервер запуститься на `http://localhost:8080`
 
 > В файле `docker-compose.yaml` при необходимости можно настроить переменные окружения для запуска frontend и server.
+
+## Сетк технологий
+1. React v19
+2. React-router
+3. TypeScript
+4. Ollama
+5. Zustand
+6. ShadcnUI
+7. Vite
+8. TanStack Query, Axios
+
