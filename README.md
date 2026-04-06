@@ -46,4 +46,5 @@
 6. ShadcnUI
 7. Vite
 8. TanStack Query, Axios
+9. TailwindCss
 
